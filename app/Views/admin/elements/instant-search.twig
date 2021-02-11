@@ -1,0 +1,99 @@
+<div class="mg-t-25">
+   <div class="table-responsive">
+    <table class="table table-bordered bawaba-tables">
+        <thead>
+            <tr>
+                <th><b><input type="checkbox" id="checkAll" /></b></th>
+                <th><b>تاريخ </b></th>
+                <th><b>الإسم ورقم الهاتف</b></th>
+                <th><b>العنوان</b></th>
+                <th><b>الحالة</b></th>
+                <th><b>المنتوج</b></th>
+                                <th><b>رؤية المعلومات</b></th>
+
+                <th><b>المصدر</b></th>
+                <th><b>الموظفة</b></th>
+                <th><b>الموزع</b></th>
+                <th><b>تعديل</b></th>
+                <th><b>History</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        
+        
+        {% for item in lists %}
+        
+        {% if item.select == 'new' %}
+        <tr class='listingOrdersTR'>
+             <td>
+              <div class="box">
+              <span class="checkmark"></span>
+              <input class='check' type="checkbox" data-item='{{item.id}}'>
+              </div>
+             </td>
+             <td>{{item.created_at}}</td>
+             <td>{{item.name}}
+             <br>
+             <a href="tel:{{item.tel}}" class="tel">
+             <label for="" class="label label-primary label-city-op">{{item.tel}}</label>
+             </a>
+             </td>
+             <td>{{item.adress}} 
+             <br>
+             <label for="" class="label label-success label-city-op">{{item.city}}</label>
+             </td>
+             <td> <label for="" class="city-data">{{item.type}}</label> </td>
+             <td>{{item.ProductReference}} X {{item.quantity}} = {{item.price}} </td>    
+             <td colspan='3'>{{item.source}} </td>    
+         </tr>
+         {% else %} 
+            <tr class='listingOrdersTR'>
+             <td>
+              <div class="box">
+              <span class="checkmark"></span>
+              <input class='check' type="checkbox" data-item='{{item.id}}'>
+              </div>
+             </td>
+             <td>{{item.created_at}}</td>
+             <td>{{item.name}}
+             <br>
+             <a href="tel:{{item.tel}}" class="tel">
+             <label  class="label label-primary label-city-op">{{item.tel}}</label>
+             </a>
+             </td>
+             <td>{{item.adress}} 
+                    <span class="label label-success city-data">{{item.cityName}}</span>
+             <br>
+             </td>
+             <td> <label for="" class="city-data">{{item.type}}</label> </td>
+             <td>
+                 <table class="list_products">
+                    {% set total = 0 %}
+                    {% for product in item.products %}
+                    <tr>
+                        <td> {{product.quanity}} </td>
+                        <td> x {{product.product.name}} </td>
+                    </tr>
+                    {% set total = (total + product.price) %}
+                    {% endfor %}
+                    <tr> <td colspan="2">المجموع : {{total}} درهم</td></tr>
+             </table>
+             </td>   
+            
+            <td>
+                <a type="button" data-action='true' class="btn btn-primary btn-lg loadactions" data-listID='{{item.id}}'>رؤية المعلومات</a>
+            </td>
+            <td>{{item.source}} </td>             
+            <td>{{item.employee.username}} </td>            
+            <td>{{item.deliver.username}}</td>
+            
+            <td><a class="btn btn-warning editbtnsearch" href='{{path_for("lists.edit",{id : item.id})}}?returnURI={{EXIST_URL}}'>تعديل</a></td>
+            <td class="text-center"><a onclick="show_history({{item.id}})" href="javascript:;" class='btn btn-success'>history</a> </td>
+            
+             </tr>
+            
+         {% endif %}
+         {% endfor %}   
+        </tbody>
+    </table>
+    </div>

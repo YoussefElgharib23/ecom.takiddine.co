@@ -1,0 +1,140 @@
+{% extends "admin/layout.twig" %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+
+<!-- Page header -->
+<div class="page-header page-header-default ">
+<div class="page-header-content">
+<div class="page-title">
+<h1> <span class="text-semibold"><i class="icon-arrow-right6 position-left goback"></i>  احصائيات الموظفات </span></h1>
+</div>
+
+
+<div class="heading-elements stastsForm">
+    <form class="heading-form" id="form-stats-From-To" autocomplete="off" method="GET" action="">
+        <div class="col-md-5">
+        <div class="form-group">
+            <label for="">التاريخ من</label>
+            <input type="text" name="from" value='{{from}}'  placeholder="التاريخ من" class="form-control" data-date-format="yyyy-mm-dd" id="datepickerFrom">
+        </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="">التاريخ إلى</label>
+                <input type="text" name="to" value='{{to}}' placeholder="التاريخ الى" class="form-control" data-date-format="yyyy-mm-dd" id="datepickerTo">
+            </div>
+            </div>
+        <div class="col-md-1">
+        <div class="form-group">
+            <button class="btn btn-success" type="submit">
+                <i class="icon-search4"></i></button></div>
+        </div>
+    </form>
+</div>
+
+
+</div>
+
+
+<div class="breadcrumb-line">
+   <ul class="breadcrumb-elements">
+
+       <li class="dropdown">
+        <a href="?duration=month" class="dropdown-toggle" >
+            
+ آخر شهر            
+        </a>
+
+</li>
+
+<li class="dropdown">
+        <a href="?duration=week" class="dropdown-toggle" >
+            
+ آخر أسبوع            
+        </a>
+
+</li>
+         
+    <li class="dropdown" style="display: none">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            
+            حسب الموظفة
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right employee_dropdown">
+            <li><a href="all"> الكل </a></li>
+            {% for employee in ALLEMPLOYEES %}
+            <li><a href="{{employee.id}}">{{employee.username}}  </a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    </ul>
+ </div>
+</div>
+ 
+ 
+ 
+ 
+<!-- Content area -->
+<div class="content">
+
+{% include "admin/elements/flash.twig" %}
+
+
+
+<div class="panel panel-flat responsive-panel">
+    <table class="table table-striped bawaba-tables" >
+        <thead>
+            <tr>
+                <th><b> الموظفة  </b></th>
+                <th><b>  تم توزيعها </b></th>
+                <th><b> اعادة الإتصال  </b></th>
+                <th><b>  لا يجيب    </b></th>
+                <th><b> ملغية  </b></th>
+                <th><b> قيد المعالجة  </b></th>
+                <th><b>  قبول الطلب   </b></th>
+                <th><b> مجموع الطلبات   </b></th>
+                </tr>
+        </thead>
+        <tbody>  
+            {% for day,item in employees %}
+                <tr>
+                    <td class='day_bg' colspan='8'>{{item.date}}</td>
+                </tr>    
+            
+                {% for name,item in item %}
+                
+
+                {% if name != 'date' %}
+
+                <tr>
+                    <td> {{name}} </td>
+                    <td><span class="badge badge-primary"> {{item.delivredPercent}}</span> <span class="badge badge-flat border-danger text-danger-600">{{item.delivred}}</span> </td>
+                    <td><span class="badge badge-primary">{{item.recallPercent}}</span><span class="badge badge-flat border-danger text-danger-600"> {{item.recall}}</span> </td>
+                    <td><span class="badge badge-primary">{{item.noanswerPercent}}</span><span class="badge badge-flat border-danger text-danger-600"> {{item.noanswer}}</span> </td>
+                    <td><span class="badge badge-primary">{{item.canceledPercent}}</span> <span class="badge badge-flat border-danger text-danger-600">{{item.canceled }}</span> </td>
+                    <td><span class="badge badge-primary">{{item.waitingPercent}}</span> <span class="badge badge-flat border-danger text-danger-600">{{item.waiting }}</span> </td>
+                    <td><span class="badge badge-primary">{{item.sentPercent}}</span> <span class="badge badge-flat border-danger text-danger-600">{{item.sent }}</span> </td>
+                    <td><span class="badge badge-primary">{{item.allPercent}}</span><span class="badge badge-flat border-danger text-danger-600"> {{item.all}}</span> </td>
+                </tr>
+                
+                {% endif %}
+
+                {% endfor %}
+            
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
+
+
+
+</div>
+</div>
+{% endblock %}

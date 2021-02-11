@@ -1,0 +1,286 @@
+{% extends "admin/layout.twig" %} 
+
+{% block content %}
+
+
+<style>
+select.danger_me {
+    color: black;
+}
+</style>
+
+
+
+        <!-- Content area -->
+        <div class="content">
+        {% include "admin/elements/flash.twig" %}
+
+        <div class="col-md-8">
+
+
+
+<form class="form-horizontal" method='post'  action="{{path_for('lists.update',{id : list.id})}}"   id="createListForm" autocomplete="off" >
+<input type="hidden" name='redirectURL' value="{{''|redirectURL}}">
+            <!-- Basic tabs -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-table mg-t-20 mg-sm-t-30">
+<div class="panel-heading">
+ <h4>معلومات الزبون</h4> <hr>
+  </div>
+                        <div class="panel-body">
+
+
+
+                         
+                                <input type="hidden" name="mowadafaID" value='{{employee.id}}'>
+
+                                <fieldset class="content-group">
+ <div class="row">
+    
+    <div class="col-md-7">
+    
+
+    
+    <div class="row">
+            <div class="col-md-6">
+    <div class="form-group col-md-12">
+      
+        <input type="text" class="form-control {% if list.name is empty %} danger_me {% endif  %}" value='{{list.name}}' name="name"  placeholder="الإسم الكامل للزبون" required>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="form-group col-md-12">
+        <input type="text" class="form-control frequired {% if list.adress is empty %} danger_me {% endif  %}" value="{{list.adress}}"  name="adress" placeholder="العنوان" required>
+    </div>
+    </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6">
+            <div class="form-group col-md-12">
+                <input type="number" step="any"   value="{{list.tel}}"  class="form-control frequired  {% if list.tel is empty %} danger_me {% endif  %}" name="tel" id="tel" maxlength="10" placeholder="رقم الهاتف" required>
+            </div>
+        </div>  
+    
+
+
+     <div class="col-md-6">
+       <div class="form-group col-md-12">
+        
+          <select data-city='{{list.cityID}}' class="form-control citySelect frequired {% if list.realcity.city_name is empty %} danger_me {% endif  %}"   name="cityID" placeholder="السلعة">
+            <option value="{{product.id}}">اختيار المدينة</option>
+            {% for city in ALLCITIES %}
+            <option value="{{city.id}}">{{city.city_name}}</option>
+            {% endfor%}
+            <option  style='background:red;' value="out">خارج التغطية</option>
+          </select>
+      </div>
+    </div>
+    
+    <div class="col-md-6"  style="display: none;">
+        <div class="form-group col-md-12">
+        <input type="number" step="any" readonly='true' class="form-control frequired" value="{{list.prix_de_laivraison}}" name="prix_de_laivraison" id="prix_de_laivraison" placeholder="ثمن الإرسال بالدرهم - أرقام فقط" required="">
+        </div>
+    </div>
+    
+    </div>
+    
+    
+    
+
+    
+    
+    <div class="row">
+    
+    
+
+   
+    
+    <div class="col-md-6" style="display: none;" id='outzone_adress'>
+        <div class="form-group col-md-12">
+        <input  type="text" class="form-control" name="outzoneAdress" id="" placeholder="المدينة التي توجد خارج التغطية" >
+        </div>
+    </div>
+    
+    
+    
+    
+    </div>
+    
+    
+    </div>
+    
+    
+    
+     <div class="col-md-5">
+        <div class="form-group col-md-12">
+            <textarea placeholder='ملاحظة' name="note" id="" cols="40" class="form-control"  rows="6">{{list.note}}</textarea>
+        </div>
+    </div>
+     
+ </div>
+
+
+                               
+
+                                </fieldset>
+                                
+                            
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel mg-t-45 mg-b-25 panel-flat">
+<div class="panel-heading">
+ <h4>المنتجات</h4>
+ <hr>
+  </div>
+
+                        <div class="panel-body">
+
+
+
+
+                                <fieldset class="content-group productsList">
+
+
+                    {% if list.products is empty %}
+                    
+                                    <div class="row productsTosale">
+                                        <div class="col-md-4">
+
+                                            <div class="form-group col-md-12">
+                                                <div class="product-q">
+                                                <select class="form-control danger_me frequired" name="ProductID[]" placeholder="السلعة">
+                                                <option>اختيار المنتوج</option>
+                                                {% for product in ALLPRODUCTS %}
+                                                <option value="{{product.id}}">{{product.name}}</option>
+                                                {% endfor%}
+                                                </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group col-md-12">
+ <input type="number" step="any" class="form-control danger_me frequired" name="prix[]" placeholder="سعر البيع" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group col-md-12">
+                                               
+                                         <input type="number" step="any" name="quantity[]" class="form-control frequired danger_me" name="produit" id="produit" placeholder="الكمية" required>
+
+                                               
+                                               
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a id="addmoreproducts" href="javascript:;" class="btn btn-primary">+</a>
+                                        </div>
+                                    </div>
+                    {% endif %}
+
+             
+                    {% for item in list.products %}
+                    <div class="row productsTosale editMultsaleList">
+                                        <div class="col-md-4">
+
+                                            <div class="form-group col-md-12">
+                                                <div class="product-q">
+                                                <select data-product='{{item.productID}}' class="form-control frequired" name="ProductID[]" placeholder="السلعة">
+                                                    <option>اختيار المنتوج</option>
+
+                                                {% for product in ALLPRODUCTS %}
+                                                <option value="{{product.id}}">{{product.name}}</option>
+                                                {% endfor%}
+
+                                                </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group col-md-12">
+                                                <input type="number" step="any" class="form-control frequired" name="prix[]" value="{{item.price}}" placeholder="سعر البيع" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group col-md-12">
+                                               
+                                         <input type="number" step="any" value='{{item.quanity}}' name="quantity[]" class="form-control frequired" name="produit" id="produit" placeholder="الكمية">
+
+                                               
+                                               
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-1">
+
+                                      {% if loop.first%}
+                                          <a id="addmoreproducts" href="javascript:;" class="btn btn-primary">+</a>
+                                          {% else %}
+                                    <a id="removemoreproducts" href="javascript:;" class="btn btn-primary btn-danger">-</a>
+                                          {% endif%}
+
+                                          
+                                          
+                                          
+                                            
+                                        </div>
+                                    </div>
+                    {% endfor %}
+
+
+                                </fieldset>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Basic tabs -->
+            <div class="row">
+                <div class="col-md-6">
+                <button type="submit" class="btn btn-success btn-block">تعديل البيانات</button>
+                </div>
+                 <div class="col-md-6">
+                <a data-id="{{list.id}}" class="btn submit_and_confirm_cmd go_edit_employee btn-danger btn-block">
+                            تعديل البيانات وقبول الطلب
+                </a>
+                </div>
+            </div>
+            
+            
+            
+            </form>
+
+        </div>
+        <div class="col-md-4">  
+        
+            <div class="panel panel-flat">  
+            <div class="panel-body heylpe">
+               <h2> اسم العميل : {{list.name}} </h2>
+               <h2> رقم الهاتف :  {{list.tel}}</h2>        
+               <h2>العنوان : {{list.adress}} </h2>
+               <h2>المدينة :  {{list.realcity.city_name}} </h2>    
+               <h2> المصدر   :  {{list.source}} </h2>    
+               <h2>  المنتوج  :  {{list.product}}  </h2>
+               <h2>  الكمية :   {{list.quantity}}  - الثمن  : {{list.price}} درهم </h2>
+            </div>
+            </div>
+        </div>
+            
+        </div>
+        {% endblock %}

@@ -1,0 +1,170 @@
+{% extends "admin/layout.twig" %}
+{% block title %} {{l.home.28}}{% endblock %}
+
+{% block content %}
+
+{% include "admin/elements/stockModals.twig" %}
+
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+
+
+{% include "admin/stockGeneral/header.twig" %}
+
+
+
+
+
+
+
+
+<!-- Content area -->
+<div class="content">
+
+
+{% include "admin/elements/flash.twig" %}
+
+
+
+
+
+<div class="panel panel-flat">
+
+            <div class="panel-body text-center">
+
+                <div class="table-responsive tablodyali">
+                
+                
+                    <table class="table table-striped datatable sortietable" >
+                        <thead>
+                            <tr>
+                                <th><b> التاريخ </b></th>
+                                <th><b> المنتوج [REF] </b></th>
+                                <th><b> ملاحظة </b></th>
+                                <th><b> الكمية </b></th>
+                                <th style="width:150px;"><b> تأكيد  </b></th>
+                                <th><b> رؤية التفاصيل  </b></th>
+                            </tr>
+                        </thead>
+                        <tbody>  
+                 
+                             
+                        {% for item in HistorySortie %}
+                         <tr>
+                             <td >N-A</td>
+                             <td>{{ item.product.name }}</td>
+                             <td>N-A</td>
+                             <td>{{ item.sum_quantity }}</td>
+                             <td style="width:150px;">{{item.sum_valid}} </td>
+                             <td><a  id='loadSortieProductHistory' href="javascript:;" data-product='{{ item.product.id }}'><i class="icon-eye"></i></a></td>
+                         </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                
+               
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+<style>
+        table.table.table-bordered tr td {
+    padding: 3px;
+}
+table.table.table-bordered tr th {
+    padding: 3px;
+}
+.entreetable {
+    text-align: start;
+}
+
+.sortietable {
+    text-align: start;
+}
+</style>
+       
+
+
+
+
+
+
+
+        {% if sortie is not empty %}
+        <div class="panel panel-flat">
+
+            <div class="panel-body text-center">
+
+                <div class="table-responsive tablodyali">
+                
+                <div class="panel panel-flat">
+                    <table class="table table-striped datatable userstable" >
+                        <thead>
+                            <tr>
+                                <th><b> التاريخ </b></th>
+                                <th><b> المنتوج [REF] </b></th>
+                                <th><b> المدينة + الكمية </b></th>
+                                <th><b> الحالة  </b></th>
+                                <th><b> تأكيد  </b></th>
+                            </tr>
+                        </thead>
+                        <tbody>  
+                        {% for item in sortie %}
+                         <tr>
+                            
+                            
+                            
+                             <td>{{item.created_at}}</td>
+                             <td>{{item.product.name}}</td>
+                             <td>
+                                
+                                <table class="table table-bordered">
+                                    <th>المدينة</th>
+                                    <th>الكمية</th>
+                                
+                                    {{item.ListQuantities|listcitiesQuantity}}
+                                    {% for hh in item.ListQuantities %}
+                                    {% endfor %}
+                                </table>
+                                 
+                             </td>
+                             <td>{% if item.statue is empty %} غير مفعل {% else %} تم التفعيل {% endif %}</td>
+                             <td>
+                             
+                             {% if item.statue is empty %}
+                             <a href="javascript:;" id='loadProductsList' 
+                             data-SortieProductID="{{item.product.id}}" data-SortieListID="{{item.id}}" 
+                             
+
+                             data-listProduct='{{item.id}}' data-toggle="modal"  data-target="#editSortieStock" class="btn btn-primary">تعديل وموافقة</a>
+                             {% endif %}
+                             </td>
+                             
+                         </tr>
+                        {% endfor %}
+                         
+                      
+                        </tbody>
+                    </table>
+                </div>
+               
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+
+</div>
+</div>
+{% endblock %}

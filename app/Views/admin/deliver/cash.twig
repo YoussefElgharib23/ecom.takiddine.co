@@ -1,0 +1,196 @@
+{% extends "admin/layout.twig" %}
+{% block title %} {{l.users.1}} {% endblock %}
+
+{% block content %}
+
+
+
+<style>
+    a#showNotPaid {background: white;color: #2196f3;}
+
+a#showPaid {
+    background: white;
+    color: #2196f3;
+}
+
+.activeTab {
+    background: #2196f3!important;
+    color: white !important;
+}
+</style>
+
+
+<!-- Content area -->
+<div class="content">
+        
+{% include "admin/elements/flash.twig" %}
+
+
+<div class="navbar navbar-default navbar-xs navbar-component">
+                <ul class="nav navbar-nav no-border ">
+
+            <li class="nav-item  {% if type == 'waiting' %} active  {% endif %}">
+        <a class="nav-link" href="{{path_for('deliver.orders')}}">
+          <span>
+            الطلبات الجديدة
+          </span> 
+        </a>
+      </li> 
+      <li class="nav-item  {% if type == 'canceled' %} active  {% endif %}">
+        <a class="nav-link" href="{{path_for('deliver.orders.canceled')}}">
+          <span>الملغية</span>
+        </a>
+      </li>                  
+      <li class="nav-item {% if type == 'delivred'  %} active  {% endif %}">
+        <a class="nav-link" href="{{path_for('deliver.orders.delivered')}}">
+          <span>تم توزيعها</span>
+        </a>
+      </li>
+      <li class="nav-item {% if type == 'recall'  %} active  {% endif %}">
+        <a class="nav-link" href="{{path_for('deliver.orders.recall')}}">
+          <span>اعادة الإتصال</span>
+        </a>
+      </li>  
+      <li class="nav-item  {% if type == 'NoAnswer' %} active  {% endif %}">
+        <a class="nav-link" href="{{path_for('deliver.orders.NoResponse')}}">
+          <span>لا تجيب</span>
+        </a>
+      </li>              
+    
+
+          </ul>
+
+          <div class="navbar-right">
+           <ul  class="nav navbar-nav">
+            <li><a href="{{path_for('deliver.cash')}}">   الحساب اليومي    </a></li>
+            <li><a href="{{path_for('lists.deliver.export')}}">     استخراج كل طلبات الموزع  EXCEL     </a></li>
+            <li><a href="javascript:;" id='exportSelectedOnly'>   استخراج  selectione      </a></li>
+             <li><select  class=' form-control' id="limitPerPage">
+               <option value="10">10</option>
+               <option value="20">20</option>
+               <option value="30">30</option>
+               <option value="40">40</option>
+               <option value="50">50</option>
+               <option value="100">100</option>
+               <option value="100">200</option>
+             </select></li>
+             <li></li>
+           </ul>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-group  block" style="width:100%;">
+    
+
+  <a class="btn btn-primary activeTab"  id="showNotPaid" href="javascript:;">انتظار الاستلام</a>
+    <a class="btn btn-primary" id="showPaid"  href="javascript:;">تم الدفع</a>
+</div>
+
+<div class="panel panel-flat responsive-panel">
+   
+
+
+     <table class="table table-striped bawaba-tables paied_table" style='display:none;' >
+        <thead>
+            <tr>
+               <th><b> اليوم </b></th>
+                <th><b> عدد الطلبات  </b></th>
+                <th><b> مجموع المبيعات</b></th>
+                <th><b> سعر التوصيل </b></th>
+                <th><b> الصافي </b></th>
+                <th><b>رؤية التفاصيل</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        
+        {% for key,item in cash %} 
+             {% if item.paied != 0 %}
+             {% if item.list is not empty %}
+                <tr>
+                    <td colspan="6">{{key}}</td>
+                </tr>
+                {% for day in item.list %}
+                {% if day.paied != 0 %} 
+                <tr>
+                    <td><b>{{ day.day }}</b></td>
+                     <td><b>{{ day.count }}</b></td>
+                     <td><b>{{ day.total }} درهم </b> </td>
+                     <td><b>{{ day.laivraison }} درهم </b> </td>
+                     <td><b>{{ day.rest }} درهم </b> </td>
+                     <td>
+                           <a href="javascript:;" data-deliver='{{item.id}}'  data-toggle="modal" data-target="#cashModal" data-date='{{day.day}}' class='seemoremony btn btn-primary'>
+                                 <i class="icon-eye"></i> رؤية التفاصيل</a>
+                     </td>
+                </tr>
+                {% endif %}
+                {% endfor %} 
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped bawaba-tables unpaied_table" >
+        <thead>
+            <tr>
+             <th><b> اليوم </b></th>
+                <th><b> عدد الطلبات  </b></th>
+                <th><b> مجموع المبيعات</b></th>
+                <th><b> سعر التوصيل </b></th>
+                <th><b> الصافي </b></th>
+                <th><b>رؤية التفاصيل</b></th>
+            </tr>
+        </thead>
+        <tbody>  
+        {% for key,item in cash %} 
+ 
+                {% if item.notPaied != 0 %}
+                 {% if item.list is not empty %}
+                    <tr>
+                        <td colspan="6">{{key}}</td>
+                    </tr>
+                    {% for day in item.list %}
+                    {% if day.paied == 0 %} 
+                    <tr>
+                               <td><b>{{ day.day }}</b></td>
+                     <td><b>{{ day.count }}</b></td>
+                     <td><b>{{ day.total }} درهم </b> </td>
+                     <td><b>{{ day.laivraison }} درهم </b> </td>
+                     <td><b>{{ day.rest }} درهم </b> </td>
+                         <td>
+                           <a href="javascript:;" data-deliver='{{item.id}}'  data-toggle="modal" data-target="#cashModal" data-date='{{day.day}}' class='seemoremony btn btn-primary'>
+                                 <i class="icon-eye"></i> رؤية التفاصيل</a>
+                     </td>
+                        
+                    </tr>
+                    {% endif %}
+                    {% endfor %} 
+                {% endif %}
+                {% endif %}
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+    </div>
+
+
+<center>{{pagination|raw}}</center>
+
+
+{% endblock %}

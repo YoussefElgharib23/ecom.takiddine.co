@@ -1,0 +1,238 @@
+<!-- تعيين الطلبات الى الموظفات -->
+<div class="modal fade" id="SendOrdersToEmployees" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <b> عدد الطلبات المتوفرة <span class='debo' data-girlstotal="" ></span></b>
+      <form class="form-horizontal" method='post' action="{{path_for('data.assignToEmployee')}}" autocomplete="off">
+               <input type="hidden" name="AssignToEmployeeIDS" id="AssignToEmployeeIDS">
+
+                <fieldset class="content-group mg-t-25 mg-b-25">
+                     {% for item in  ALLEMPLOYEES %}
+                    <div class="form-group">
+                      <span class="col-md-2">{{item.username}}</span>
+                      <span class="col-md-6">
+                         <input type="number" placeholder='{{item.username}}' class="form-control countSendForEmployee"  name="{{item.id}}">
+                      </span>
+                      <span class="col-md-4" id="filler_employee_{{item.id}}"></span>
+                    </div>
+                    {% endfor %}
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-block  btn-primary" id="send_to_girls_btn">
+                     تعيين الطلبات
+                        <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+<!-- تعيين الطلبات الى مدينة -->
+<div class="modal fade" id="CitiesModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <form class="form-horizontal" method='post' action="{{path_for('NewOrders.assignToCity')}}" autocomplete="off">
+        <div id="assign-cities-alert"></div>
+               <input type="hidden" name="AssignToCityIDS" id="AssignToCityIDS">
+                <fieldset class="content-group">
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2">اختيار المدينة</label>
+                            <div class="col-lg-10">
+                               <div class="product-q">
+                                    <select class="form-control" id="citiesSelect" name="cityID" >
+                                    <option  value="N-A" >اختيار المدينة</option>
+                                    <option style='background:red;color:white;' value="Horzone">خارج التغطية</option>
+                                    <option style='background:green;color:white;' value="NotFound">غير معروفة</option>
+                                    {% for item in ALLCITIES %}
+                                    <option value="{{item.id}}">{{item.city_name}}</option>
+                                    {% endfor%}
+                                    </select>
+                                </div>
+                                </div>
+                        </div>
+                
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary" id="assing_to_citie">
+                    تعيين الى المدينة
+                        <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+<!-- تعيين الطلبات الى المنتوج -->
+<div class="modal fade" id="setOrdersToProduct" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <form class="form-horizontal" method='post' action="{{path_for('NewOrders.assignToProduct')}}" autocomplete="off">
+            <div id="assign-product-alert"></div>
+               <input type="hidden" name="AssignToProductIDS" id="AssignToProductIDS">
+                <fieldset class="content-group">
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-2"> اختيار المنتوج</label>
+                            <div class="col-lg-10">
+                               <div class="product-q">
+                                    <select id="ProductsSelect" class="form-control" name="productID" >
+                                    <option value="N-A" > اختيار المنتوج</option>
+                                    {% for item in ALLPRODUCTS %}
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                    {% endfor%}
+                                    </select>
+                                </div>
+                                </div>
+                        </div>
+
+
+
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary" id="assing_to_product">
+                    تعيين الى منتوج
+                        <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+<!-- حذف الطلبات -->
+<div class="modal fade" id="deleteOrdersModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <form class="form-horizontal" method='post' action="{{path_for('NewOrders.delete')}}" autocomplete="off">
+
+               <input type="hidden" name="AssignToDelete" id="AssignToDelete">
+              
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">
+                         تأكيد وحذف الطلبات
+                   <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- حذف الطلبات -->
+<div class="modal fade" id="removeOrdersModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <form class="form-horizontal" method='post' action="{{path_for('NewOrders.remove')}}" autocomplete="off">
+
+               <input type="hidden" name="AssignToRemove" id="AssignToRemove">
+              
+                <div class="text-right">
+                    <button type="submit" class="btn btn-block btn-danger">
+                         تأكيد وحذف الطلبات 
+                         بشكل كلي
+                   <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+
+<!-- الإسترجاع من المحذوفة -->
+<div class="modal fade" id="RestoreNewOrdersModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <form class="form-horizontal" method='post' action="{{path_for('NewOrders.restore')}}" autocomplete="off">
+
+               <input type="hidden" name="AssignToRestore" id="AssignToRestore">
+                <fieldset class="content-group">
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary" id="Submit_Add_User">
+                         تأكيد واسترجاع
+                   <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+<!-- الإسترجاع من المكررة -->
+<div class="modal fade" id="RestoreFromDuplicated" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body"> 
+      <form class="form-horizontal" method='post' action="{{path_for('NewOrders.RestoreFromDuplicates')}}" autocomplete="off">
+
+               <input type="hidden" name="RestoreFromDuplicates" id="RestoreFromDuplicates">
+                <fieldset class="content-group">
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary" id="Submit_Add_User">
+                         استرجاع من المكررة
+                   <i class="icon-arrow-left13 position-right"></i>
+                    </button>
+                </div>
+
+    </form>
+
+      </div>
+  </div>
+</div>
+</div>
+
+
+
+

@@ -1,0 +1,310 @@
+{% extends "admin/layout.twig" %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+
+
+<!-- Page header -->
+<div class="page-header page-header-default ">
+<div class="page-header-content">
+<div class="page-title">
+<h1> <span class="text-semibold"><i class="icon-arrow-right6 position-left goback"></i>
+احصائيات اخرى
+    
+</span></h1>
+</div>
+</div>
+
+
+<div class="breadcrumb-line">
+   <ul class="breadcrumb-elements">
+  
+  
+   
+   
+  
+    </ul>
+
+
+ </div>
+
+
+ 
+</div>
+ 
+
+
+
+
+
+<!-- Content area -->
+<div class="content">
+
+{% include "admin/elements/flash.twig" %}
+
+<style>
+td.day_bg {
+    background: #CDDC39;
+    font-size: 15px;
+    font-weight: bold;
+}
+</style>
+
+
+
+
+
+<!-- Content area -->
+<div class="xsx">
+
+
+<div class="row">
+    
+   <h1 class="col-md-12" id="la_date"> تاريخ اليوم  </h1>
+ 
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-blue-400 has-bg-image ">
+            <div class="media no-margin">
+               <div class="media-body">
+                  <h3 class="no-margin">   <span>{{earned}}</span>      درهم </h3>
+                  <span class="text-uppercase text-size-mini"> مجموع الأرباح لهذا الأيوم </span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-cash3 icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+   
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-danger-400 has-bg-image">
+            <div class="media no-margin">
+               <div class="media-body">
+                  <h3 class="no-margin">{{totalNewOrders}}</h3>
+                  <span class="text-uppercase text-size-mini">عدد الطلبات الجديدة</span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-file-empty2 icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+  
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-success-400 has-bg-image">
+            <div class="media no-margin">
+               <div class="media-body text-left">
+                  <h3 class="no-margin">{{statsdelivers.waiting}}</h3>
+                  <span class="text-uppercase text-size-mini">عدد الطلبات في  انتظار التوزيع</span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-users2 icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+   
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-indigo-400 has-bg-image">
+            <div class="media no-margin">
+               <div class="media-body text-left">
+                  <h3 class="no-margin">{{statsemployee.waiting}}</h3>
+                  <span class="text-uppercase text-size-mini"> الطلبات  قيد المعالجة  </span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-phone-wave icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+ 
+</div>
+</div>
+
+
+<div class="row">
+  
+  <div class="col-md-4">
+    <div class="panel">
+      <div class="pane-body">
+        <div class="sidebar-category">
+                  <div class="category-title statswidgetitle">
+                    <span>احصائيات المدن</span>
+                    <ul class="icons-list">
+                      <li><a href="#" data-action="collapse" class=""></a></li>
+                    </ul>
+                  </div>
+
+                  <div class="category-content" style="display: block;">
+                    <ul class="progress-list">
+
+                      {% for item in cities %}
+                      <li>
+                                <label>( {{item.count}} ) {{item.city}}  <span>{{item.percent}}</span></label>
+                        <div class="progress progress-xxs">
+                          <div class="progress-bar progress-bar-{{item.color}}" style="width: {{item.percent}}">
+                            <span class="sr-only">{{item.count}}</span>
+                          </div>
+                        </div>
+                            </li>
+                         
+                            {% endfor %}
+
+
+                            
+                        </ul>
+                  </div>
+                </div>
+      </div>
+    </div>
+  </div>
+
+ 
+    <div class="col-md-4">
+    <div class="panel">
+      <div class="pane-body">
+        <div class="sidebar-category">
+                  <div class="category-title statswidgetitle">
+                    <span>احصائيات المنتوجات</span>
+                    <ul class="icons-list">
+                      <li><a href="#" data-action="collapse" class=""></a></li>
+                    </ul>
+                  </div>
+
+                  <div class="category-content" style="display: block;">
+                    <ul class="progress-list">
+
+                      {% for item in products %}
+                      <li>
+                        <label> ( الكمية :  {{item.quantity}}) {{item.product}}  <span>{{item.percent}}</span></label>
+                        <div class="progress progress-xxs">
+                          <div class="progress-bar progress-bar-{{item.color}}" style="width: {{item.percent}}">
+                            <span class="sr-only">{{item.count}}</span>
+                          </div>
+                        </div>
+                            </li>
+                         
+                            {% endfor %}
+
+
+                            
+                        </ul>
+                  </div>
+                </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+   <div class="col-md-4">
+    <div class="panel">
+      <div class="pane-body">
+        <div class="sidebar-category">
+                  <div class="category-title statswidgetitle">
+                    <span>حجم التعاملات لآخر أسبوع  </span>
+                    <ul class="icons-list">
+                      <li><a href="#" data-action="collapse" class=""></a></li>
+                    </ul>
+                  </div>
+
+                  <div class="category-content" style="display: block;">
+                  <ul class="list-feed">
+                    {% for item in cash %}
+                    <li class="border-warning-400">
+                      <div class="text-muted text-size-small mb-5">{{item.day}} - ({{item.count}}) طلب </div>
+                      {{item.total}} درهم
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  </div>
+                </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="row">
+  
+   {% for item in stats.delivers %}
+      <div class="col-md-4">
+            <div class="panel mg-b-25 pd-20">
+                
+                 
+                <div class="panel-body">
+                                  <h6 class="slim-panel-title text-left">{{item.name}}</h6>
+
+                    <table class="table border-dashed no-border mg-t-25">
+                            <tr>
+                                <td>الطلبات التي تم تسليمها</td>
+                                <td>{{item.TotalDeliverd}}</td>
+                            </tr>
+                            <tr>
+                                <td>الطلبات التي تم الغائها</td>
+                                <td>{{item.TotalCanceled}}</td>
+                            </tr>
+                            <tr>
+                                <td>الطلبات في انتظار التسليم</td>
+                                <td>{{item.TotalWaiting}}</td>
+                            </tr>
+                            <tr>
+                                <td> الطلبات التي لا تجيب</td>
+                                <td>{{item.TotalNoAnswer}}</td>
+                            </tr>
+                            <tr>
+                                <td>حالة اعادة الإتصال</td>
+                                <td>{{item.TotalRecall}}</td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </div> 
+    {% endfor %}
+
+
+   </div> 
+
+<!-- Page header -->
+<h1 class="text-left" style='font-size: 25px;margin-bottom: 15px;'>احصائيات الموظفات</h1>
+<!-- /page header -->
+
+<div class="row">
+  
+   {% for item in stats.employees %}
+      <div class="col-md-4">
+            <div class="panel mg-b-25 pd-20">
+
+                 
+                <div class="panel-body">
+                                                 <h6 class="slim-panel-title  text-left" >{{item.name}}</h6>
+
+                    <table class="table border-dashed no-border mg-t-25">
+                            
+                            <tr>
+                                <td>الطلبات التي تم الغائها</td>
+                                <td>{{item.TotalCanceled}}</td>
+                            </tr>
+                            <tr>
+                                <td>الطلبات قيد المعالجة</td>
+                                <td>{{item.TotalWaiting}}</td>
+                            </tr>
+                            <tr>
+                                <td> الطلبات بالكامل</td>
+                                <td>{{item.TotalCanceled + item.TotalWaiting }}</td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </div> 
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+<style>
+a.btn.btn-success.excelDownloadBtn {
+    border-radius: 25px;
+    float: left;
+    top: -11px;
+    z-index: 2000;
+    background: red;
+    border: 0;
+    background-color: #4f93b2;
+    background-image: linear-gradient(0deg,#4f93b2 20%,#66cfb5) !important;
+}
+</style>
+
+
+<a href="javascript:;"  class='btn btn-success excelDownloadBtn'> تحميل  Excel </a>
+
+<table class="table table-striped bawaba-tables d-none" style="display: none">
+    <thead>
+        <tr>
+            <th><b> التاريخ  </b></th>
+            <th><b> االمنتوج  </b></th>
+            <th><b>  عدد الزبائن          </b></th>
+            <th><b> الكمية  </b></th>
+            <th><b>  مجموع المبيعات      (DH)       </b></th>
+
+        </tr>
+    </thead>
+    <tbody>  
+    
+     {% for key,day in revenue %}
+        <tr>
+            <td colspan="4">{{key}}</td>
+            <td colspan="1" class="text-left">
+
+            
+
+            </td>
+
+
+        </tr>
+
+        {% for product in day.products %}
+        <tr>
+            <td></td>
+            <td>{{product.product}}</td>
+            <td>{{product.clients}} </td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.total}}</td>
+
+            
+        </tr>
+        {% endfor %}
+        <tr class="total-tr">
+            <td colspan="2">المجموع</td>
+            <td>{{day.clients}}</td>
+            <td>{{day.quantity}}</td>
+            <td>{{day.total}}</td>
+        </tr>
+
+     {% endfor %}
+
+    </tbody>
+</table>
+
+
+
+
+
+<style>
+a.btn.btn-success.excelDownloadBtn {
+    border-radius: 25px;
+    float: left;
+    top: -11px;
+    z-index: 2000;
+    background: red;
+    border: 0;
+    background-color: #4f93b2;
+    background-image: linear-gradient(0deg,#4f93b2 20%,#66cfb5) !important;
+}
+</style>
+
+
+
+<table class="table table-striped bawaba-tables" >
+    <thead>
+        <tr>
+            <th><b> المنتوج   - produit </b></th>
+            <th><b> الكمية  - Quantite  </b></th>
+            <th><b> مجموع  المبيعات  - prix  </b></th>
+        </tr>
+    </thead>
+    <tbody>  
+    
+    {% for product in data %}
+        <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.price}}</td>
+        </tr>
+     {% endfor %}
+    <tr style="background: #352b60; color: #fff; padding: 10px;">
+        <td></td>
+        <td>{{total.quantity}}</td>
+        <td>{{total.price}}</td>
+    </tr>
+
+    </tbody>
+</table>

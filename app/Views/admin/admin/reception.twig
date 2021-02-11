@@ -1,0 +1,149 @@
+{% extends "admin/layout.twig" %}
+{% block title %} {{l.home.28}}{% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+				<div class="page-header page-header-default">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h4><i class="icon-arrow-right6 position-left"></i>
+							 <span class="text-semibold">Stock</span> </h4>
+						</div>
+
+					</div>
+
+					<div class="breadcrumb-line">
+						
+						<ul class="breadcrumb-elements">
+				
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                
+                                حسب المدينة
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right city_dropdown">
+                                <li><a href="all"> الكل </a></li>
+                                {% for city in ALLCITIES %}
+                                <li><a href="{{city.id}}">{{city.city_name}}  </a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        
+
+                        <li class="dropdown" style='display:none;'>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            
+                        حسب  المنتج            
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right product_dropdown">
+                            <li><a href="all"> الكل </a></li>
+                            {% for product in ALLPRODUCTS %}
+                            <li><a href="{{product.id}}">{{product.name}}  </a></li>
+                            {% endfor %}
+                        </ul>
+                        </li>
+
+
+
+
+                        
+						</ul>
+
+
+
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+
+
+<!-- Content area -->
+<div class="content">
+
+
+
+{% include "admin/elements/flash.twig" %}
+
+
+        <div class="panel panel-flat">
+
+            <div class="panel-body text-center">
+                    <table class="table table-striped datatable userstable reception_table" >
+                        <thead>
+                            <tr>
+                                <th><b> reference </b></th>
+                                <th><b> nom de produit </b></th>
+                                <th><b> retour </b></th>
+                                <th><b> Recue  </b></th>
+                                <th><b> Réel  </b></th>
+                                <th><b> Livré </b></th>
+                                <th><b> Stock physique </b></th>
+                                <th><b> Stock theorique </b></th>
+                                <th><b> Stock en cours </b></th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>  
+
+
+
+                        {% for key,list in reception %}
+
+
+                            <tr >
+                               <td colspan="9" class="cityRow">
+                                    {{key}}
+                               </td> 
+                            </tr>
+                            
+                             {% for  item  in list  %}
+
+							{% if (item.retour == 0) and (item.real == 0)   and (item.livre == 0) and (item.recue == 0) and (item.theorique == 0 ) and (item.encours == 0) %}
+							{% else %}
+							<tr>                                 
+								 <td>{{ item.product_ref}}</td>
+                                 <td>{{ item.product_name}}</td>
+                                 <td>{{ item.retour }}</td>
+                                 <td>{{ item.recue }}</td>
+                                 <td>{{ item.real }}</td>
+                                 <td>{{ item.livre }}</td>
+                                 <td>
+                                     {% if item.physique < 0  %}
+                                     <span class="badge badge-danger">{{ item.physique }}</span>
+                                     {% else %}
+                                     {{ item.physique }}
+                                     {% endif %}
+                                 
+                                </td>
+                                <td>
+                                     {% if item.theorique < 0  %}
+                                     <span class="badge badge-danger">{{ item.theorique }}</span>
+                                     {% else %}
+                                     {{ item.theorique }}
+                                     {% endif %}
+                                </td> 
+                                <td>{{ item.encours }}</td>
+                            </tr>
+							{% endif %}
+                            
+                            {% endfor %}
+                                
+                        {% endfor %}   
+
+
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+
+
+</div>
+</div>
+{% endblock %}
+

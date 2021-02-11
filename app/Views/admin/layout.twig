@@ -1,0 +1,215 @@
+{% spaceless %}{% endspaceless %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title> لوحة التحكم</title>
+    <meta charset="utf-8">
+    <meta charset="adminlink" content="{{url.base}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="لوحة التحكم">
+    <link rel="icon" type="image/x-icon" href="{{assets}}admin/images/favicon.png" /> 
+    <link rel="stylesheet" type="text/css" href="{{assets}}admin/css/rtl.css?v={{config.version}}" />
+    
+    
+
+<style>
+body .table-responsive {
+    overflow-x: initial !important;
+    
+}
+body .panel {
+    overflow: initial !important;
+    width: 100% !important;
+}
+body {
+    overflow-x: unset;
+    width: 100% !important;
+}
+
+
+#exportSelectedOnlyForData {
+    margin-left: 41px;
+    border-radius: 35px;
+    color: white;
+    background: -webkit-linear-gradient(to right, #240b36, #c31432);
+    background: linear-gradient(to right, #240b36, #c31432);
+    margin-right: 15px;
+}
+
+
+
+.city_dropdown , .product_dropdown {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.reception_table tbody tr:nth-child(2n+3) {background: #f3f3f3}
+
+td.day_bg {
+    background: #CDDC39;
+    font-size: 15px;
+    font-weight: bold;
+}
+  .reception_table td{
+        text-align: start !important;
+    }
+    .reception_table td {
+    text-align: center !important;
+}
+
+.reception_table th {
+    text-align: center;
+}
+
+.reception_table thead {
+    background: #352b60;
+    border: 0;
+    color: white;
+}
+
+.reception_table .cityRow{
+    background: #FF0099;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #493240, #FF0099);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #493240, #FF0099); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color:white;
+}
+.reception_table td.cityRow {
+    text-align: center !important;
+    font-size: 21px;
+    padding: 0 !important;
+}
+.page-container {
+    table-layout: initial;
+}
+.sidebar {
+    min-width: 250px !important;
+}
+body.admin-logged {
+    display: table !important;
+}
+
+</style>
+    
+    
+ </head>
+
+ 
+<body dir="rtl"  class='{% if admin %} admin-logged {% endif %}{% if datauser %} data-logged {% endif %}' >
+
+  {% include "admin/elements/modals.twig" %}   
+  {% include "admin/elements/navbar.twig" %}
+
+	<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+       
+        <!-- sidbar -->
+        {% include "admin/elements/sidebar.twig" %} 	
+        
+        {% block content %} {% endblock %}
+        
+		</div>
+	</div>
+
+    <div id="overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
+
+
+
+<style>
+#overlay {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(0,0,0,0.6);
+    z-index: 2000;
+}
+.cv-spinner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px #ddd solid;
+    border-top: 4px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+}
+@keyframes  sp-anime {
+    100% { 
+        transform: rotate(360deg); 
+    }
+}
+.is-hide{
+    display:none;
+}
+</style>
+
+
+    <!-- JS script -->
+    <script type="text/javascript" src="{{assets}}admin/js/all.js?v={{config.version}}"></script> 
+    <script type="text/javascript" src="{{assets}}admin/js/clipboard.min.js?v={{config.version}}"></script>
+    <script type="text/javascript" src="{{assets}}admin/js/bawaba.js?v={{config.version}}"></script>
+    
+        
+    <form method='post' action="{{path_for('lists.deliver.export.selected')}}" id='selectFormToExport'>
+        <input type="hidden" name="type" class='type_selected'>
+      <input type="hidden" name='selectedToExport' class='selectFormToExport'>
+    </form>
+
+
+    <form method='post' action="{{path_for('exportData')}}" id='selectDataFormToExport'>
+      <input type="hidden" name='selectedToExportData' class='selectFormToExportData'>
+    </form>
+
+    <input type="hidden" id="selectedRows" />
+
+    <script> 
+    $( document ).ready(function() {
+
+
+        if($('body').hasClass('admin-logged')){
+            
+          $.get( "/load/ajax/stats", function( response ) {
+              
+            var obj = jQuery.parseJSON(response);
+            $.each(obj, function(key,value) {
+                $('.stats-'+key + ' a ').append('<span class="label bg-blue-400 ">'+value+'</span>');
+            }); 
+          });
+          
+        }
+
+
+        if($('body').hasClass('data-logged')){
+            
+          $.get( "/load/ajax/stats", function( response ) {
+              
+            var obj = jQuery.parseJSON(response);
+            $.each(obj, function(key,value) {
+                $('#stats-'+key).append('('+value+')');
+            }); 
+          });
+          
+        }
+
+
+
+    });
+    </script>   
+</body>
+</html>
+
+                  

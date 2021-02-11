@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"  data-type='new'>
+<head>
+    
+    <!-- Page title -->
+	<title> {{l.navbar.1}}  </title>
+    
+    <!-- meta -->
+   	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="لوحة التحكم">
+    
+    <!-- favicon -->
+	<link rel="icon" type="image/x-icon" href="{{ assets }}admin/images/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="{{assets}}admin/css/rtl.css?v={{config.version}}" />
+	
+	<!-- JS script -->
+	<script type="text/javascript" src="{{ assets }}/admin/js/all.js?v={{config.version}}"></script>
+	
+    <!-- check for javascript -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=http://www.google.com" />
+    </noscript>
+</head>
+
+<body class="login-container">
+<div class="page-container login-container">
+<div class="page-content">
+    <div class="content-wrapper">
+        <div class="content">           
+            <form method="POST" action="{{ path_for('login') }}" id="LoginForm" autocomplete="off">
+                <div class="panel panel-body login-form">
+                    {% include "admin/elements/flash.twig" %}
+                
+                    <!-- To Disable auto saving Password -->
+                    <input style="opacity: 0;position: absolute;">
+                    <input type="password" style="opacity: 0;position: absolute;">
+                    <!-- To Disable auto saving Password -->
+                    
+                    <div class="text-center">
+                        <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                        <h5 class="content-group"><small class="display-block">{{l.Auau.2}}</small></h5>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <input type="text"  autocomplete="false" tabindex="1"  class="form-control frequired" name="user_login" placeholder="{{l.Auau.0}}" maxlength="35" required autofocus/>
+                        <div class="form-control-feedback">
+                            <i class="icon-user text-muted"></i>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <input maxlength="35" autocomplete="false" tabindex="1"  type="password" class="form-control frequired" name="pass_login" placeholder="{{l.Auau.9}}" required/>
+                        <div class="form-control-feedback">
+                            <i class="icon-lock2 text-muted"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <input type="submit" name="submit" id='login' class="btn btn-primary btn-block" value="{{l.Auau.10}}" >
+                    </div>
+                </div>
+            </form>
+    
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

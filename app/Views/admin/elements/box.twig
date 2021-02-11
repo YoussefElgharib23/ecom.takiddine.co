@@ -1,0 +1,35 @@
+<div class='more_detail_loaded' >
+
+    
+            <h2> اسم العميل :  {{ list.name }}</h2>
+            <h2> رقم الهاتف :  {{list.tel}} </h2>        
+            <h2>العنوان : {{list.adress}} </h2>
+            <h2>المدينة : {{list.city}} - {{list.realcity.city_name}}  </h2>
+            <h2> المصدر   :  {{list.source}} </h2>    
+            <h2>  المنتوج  :  {{list.product}}  </h2>
+            <h2>  الكمية :  {{list.quantity}}  - الثمن  :  {{list.price}} درهم </h2>
+            <h2>  الملاحظة  : {{list.note}}  </h2>
+</div>
+
+<div class="more_detail_loaded" style="margin-top:20px;" >
+<table class="table">
+    <thead>
+        <th><b>المنتوج</b></th>
+        <th><b>الكمية</b></th>
+        <th><b>الثمن</b></th>
+    </thead>
+    <tbody>
+        {% for item in list.products %}
+        <tr>
+            <td>{{item.product.name}}</td>
+            <td>{{item.quanity }}</td>
+            <td>{{item.price}}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+</div>
+
+
+      

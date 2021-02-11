@@ -1,0 +1,54 @@
+{% extends "admin/layout.twig" %}
+{% block title %} Retour {% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<div class="content-wrapper">
+
+{% include "admin/elements/stockModals.twig" %}
+
+{% include "admin/stockGeneral/header.twig" %}
+
+<!-- Content area -->
+<div class="content">
+
+
+
+{% include "admin/elements/flash.twig" %}
+
+
+        <div class="panel panel-flat">
+
+            <div class="panel-body text-left">
+                    <table class="table table-striped datatable entreetable">
+                            <thead>
+                                <tr>
+                                    <th><b> التاريخ </b></th>
+                                    <th><b> المنتوج </b></th>
+                                    <th><b> المدينة </b></th>
+                                    <th><b> الكمية </b></th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                            {% for item in retour %}
+                            <tr>
+                                 <td>{{item.created_at}}</td>
+                                 <td>{{item.product.name}}</td>
+                                 <td>{{item.city.city_name}}</td>
+                                 <td>{{item.quantity}}</td>
+                             </tr>
+                             {% endfor %}
+                             </tbody>
+                        </table>
+
+
+
+            </div>
+        </div>
+
+
+</div>
+</div>
+{% endblock %}
+

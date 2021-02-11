@@ -1,0 +1,180 @@
+{% extends "admin/layout.twig" %}
+
+{% block title %}  {{l.usersedit.2}} | {{ user.username}}  {% endblock %}
+
+
+{% block content %}
+    
+
+
+<!-- Main content -->
+<div class="content-wrapper">
+<!-- Page header -->
+<div class="page-header page-header-default ">
+<div class="page-header-content">
+
+<div class="page-title">
+<h1> <span class="text-semibold"><i class="icon-arrow-right6 position-left goback"></i>
+{{l.usersedit.3}}</span></h1>
+</div>
+
+<div class="heading-elements">
+
+
+
+</div>
+</div>
+        <div class="breadcrumb-line">
+<ul class="breadcrumb">
+    <li><a href="{{path_for('admin.index')}}" title="الرئيسية"><i class="icon-home2 position-left"></i>الرئيسية</a></li>
+    <li class="active" ><a title="الأعضاء" href="{{path_for('users')}}">الأعضاء</a></li>
+    <li class="active" title="{{l.userscreate.1}}">{{l.usersedit.3}}</li>
+</ul>
+
+
+</div>
+</div>
+<!-- /page header -->
+
+<!-- Content area -->
+<div class="content">
+
+
+<!--
+ Page header 
+<div class="page-header page-header-transparent">
+    <div class="page-header-content">
+        <div class="page-title">
+            <h1> <span class="text-semibold">{{l.usersedit.3}}</span></h1>
+        </div>
+     </div>
+</div>
+-->
+
+{% include "admin/elements/flash.twig" %}
+
+
+<!-- تعديل البيانات الشخصية للمستخدم -->
+<div class="col-md-9">								
+<form  enctype="multipart/form-data" id="user_form" method='post' action="{{ path_for('users.edit', {'username': user.username}) }}">
+
+<input type="hidden" id='avatarChanged' name="avatarChanged" value="false" />
+<input type="hidden" name="validate" value="update-general-user-info" />
+
+
+
+
+
+
+
+<!-- صورة الحساب -->		
+
+
+{% if user.role == 'deliver' %}
+<div class="panel panel-flat">
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group">
+        <label>تمن التوزيع</label>
+        <input type="text" class="form-control" name='deliver_price' value='{{user.deliver_price}}' name="phone" placeholder="تمن التوزيع">
+    </div>
+        </div>
+    </div>
+</div>
+{% endif %}					
+
+<!-- المعلومات الشخصية -->			
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h5 class="panel-title">{{l.usersedit.7}}</h5>
+    </div>
+    
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{l.usersedit.9}}</label>
+                                <input type="text" class="form-control frequired" value="{{user.username}}" name="username" placeholder="@username">
+                            </div>
+                        </div>
+                                              
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{l.usersedit.11}}</label>
+                                <input type="text" class="form-control frequired" value="{{user.email}}" name="email" placeholder="البريد الإلكتروني">
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>رقم الهاتف</label>
+                                <input type="text" class="form-control " value="{{user.phone}}" name="phone" placeholder="البريد الإلكتروني">
+                            </div>
+                        </div>                        
+                    </div>
+            
+            
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<!--// المعلومات الشخصية -->						
+					
+					
+<!-- كلمة المرور -->										
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{l.usersedit.19}}</h3>
+        <p>{{l.usersedit.20}}</p>
+    </div>
+    <div class="panel-body">
+        <fieldset class="content-group">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="ادخل هنا كلمة المرور الجديدة" />
+                        <div class="input-group-btn">
+                            <button type="button" onclick="tooglePassword()" class="btn btn-default"><i class="icon-eye"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <a onclick="password_generator()" class="btn btn-primary">{{l.usersedit.21}}</a>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<!--// كلمة المرور -->
+
+
+
+<!-- تحديث البيانات -->
+<div class="text-right">
+<button type="submit" class="btn btn-block btn-primary">{{l.usersedit.26}}<i class="icon-arrow-left13 position-right"></i></button>
+</div>
+<!--// تحديث البيانات -->  
+<br>
+<div id="result"></div> 
+                              
+                                        
+
+</form> 
+
+
+              
+</div>					
+<!--// تعديل البيانات الشخصية للمستخدم -->
+
+
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% include 'admin/elements/box.twig' %}
+      
+      
+ <center id="ctamodal" class="colored_heading"  >
+
+
+  <button type="button" data-listid="{{id}}" data-role="{{type}}" data-type="NoResponse" class="adminActionBtn btn btn-default btn-lg">         لا يجيب</button>
+  <button type="button" data-listid="{{id}}" data-role="{{type}}" data-type="Recall" class="adminActionBtn btn btn-primary btn-lg">اعادة الإتصال</button>
+  <button type="button" data-listid="{{id}}" data-role="{{type}}" data-type="Canceled" class="adminActionBtn btn  btn-danger btn-lg">ملغى</button>
+    
+    
+    
+
+
+	{% if (list.cityID is empty ) or (list.name is empty ) or (list.adress is empty)  or (list.products is empty) or ( list.tel|length < 9 )  %}
+			{% set edit = 'data-edit=true' %}
+	{% else %}
+			{% set edit = 'data-edit=false' %}
+	{% endif %}
+
+
+  	{%  if auth.role != 'suivi' %}
+    <button type="button" {{ edit }} data-listid="{{id}}" data-role="{{type}}" data-type="confirmed"  class="adminActionBtn btn btn-danger  btn-lg">قبول الطلب</button>
+    {% endif %}
+        
+
+	{%  if auth.role == 'suivi' %}
+		<button type="button"  data-listid="{{id}}" data-role="{{type}}" data-type="restoreSuivi" class="adminActionBtn btn  btn-danger   btn-lg">استرجاع للموزع</button>
+	{% endif %}
+
+    
+	{%  if auth.role != 'deliver' %}
+	 <a href="/lists/edit/{{id}}" class="btn btn-success  btn-lg">  تعديل </a>
+	{% endif %}
+    
+    
+    {% if admin %}
+    <a href="/instant/delete/{{id}}" class="btn btn-success  btn-lg deletebtn">  حذف  </a>
+    {% endif %}
+
+
+
+
+
+</center>

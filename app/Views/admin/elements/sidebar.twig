@@ -1,0 +1,149 @@
+
+
+{% if admin %}  
+<div class="sidebar sidebar-main">
+    <div class="sidebar-content">
+        <div class="sidebar-category sidebar-category-visible mt-15">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+
+                
+<li>
+<a href=""><i class="icon-price-tag3"></i> <span>  الطلبات الجديدة </span></a>
+<ul>
+<li><a href="{{path_for('lists.create')}}?returnURI={{EXIST_URL}}">اضافة طلب جديد</a></li>
+<li class="stats-all"><a href="{{path_for('data')}}">     كل الطلبات الجديدة   </a></li>
+<li class="stats-deleted"><a href="{{path_for('data')}}?view=deleted">   الطلبات المحذوفة               </a></li>
+<li class="stats-duplicated"><a href="{{path_for('data')}}?view=duplicated">   الطلبات المكررة    </a></li>
+</ul>
+</li>
+   
+
+
+
+<li>
+<a href=""><i class="icon-phone-wave"></i> <span>  الموظفات</span></a>
+<ul>
+<li><a href="{{path_for('lists')}}?type=waiting"> طلبات قيد المعالجة       </a></li>
+<li><a href="{{path_for('lists')}}?type=canceled"> الطلبات الملغية         </a></li>
+<li><a href="{{path_for('lists')}}?type=recall">  الطلبات لإعادة الإتصال    </a></li>
+<li><a href="{{path_for('lists')}}?type=NoAnswer">  الطلبات لا تجيب       </a></li>
+</ul>
+</li>
+                      
+  
+
+
+
+
+
+   
+                     
+<li>
+<a href=""><i class="icon-truck"></i> <span>  الموزعين</span></a>
+<ul>
+<li><a href="{{path_for('Sentlists')}}?type=driver_waiting">         طلبات في انتظار التوزيع    <span class="label bg-blue-400"> {{statsdelivers.waiting}}   </span>        </a></li>
+<li><a href="{{path_for('Sentlists')}}?type=driver_delivred">               الطلبات التي تم توزيعها <span class="label bg-blue-400"> {{statsdelivers.delivred}}      </span>          </a></li>
+<li><a href="{{path_for('Sentlists')}}?type=driver_canceled">                 الطلبات الملغية <span class="label bg-blue-400"> {{statsdelivers.canceled}}     </span>         </a></li>
+<li><a href="{{path_for('Sentlists')}}?type=driver_NoAnswer">                الطلبات لا تجيب         <span class="label bg-blue-400"> {{statsdelivers.NoAnswer}}     </span>                </a></li>
+<li><a href="{{path_for('Sentlists')}}?type=driver_recall">                الطلبات لإعادة الإتصال        <span class="label bg-blue-400"> {{statsdelivers.recall}}     </span>              </a></li>
+</ul>
+</li>   
+
+
+<li>
+<a href=""><i class="icon-user-tie"></i> <span>  الأبطال</span></a>
+<ul>
+<li><a href="{{path_for('users.create')}}">اضافة بطل جديد</a></li>
+<li><a href="{{path_for('users')}}">قائمة الأبطال</a></li>
+</ul>
+</li>       
+
+         
+ 
+<li>
+<a href=""><i class="icon-rating3"></i> <span>  الأدوات</span></a>
+<ul>
+<li><a href="{{ path_for('pages.cities')}}">قائمة المدن</a></li>
+<li><a href="{{path_for('products')}}">قائمة المنتوجات</a></li>
+<li><a href="{{path_for('lists.transform')}}">تحويل الطلبات</a></li>                                                    
+</ul>
+</li>       
+    
+
+<li style='display:none;'><a href="{{path_for('charges')}}?type=all"><i class="icon-cash3"></i> <span>  التكاليف</span></a></li>       
+
+ 
+      
+    
+
+       
+ 
+<li><a href="{{path_for('pages.cash')}}"><i class="icon-cash3"></i> <span> 
+الحساب اليومي
+</span></a></li>   
+
+ 
+<li><a href="{{path_for('pages.revenue')}}"><i class="icon-cash3"></i> <span> 
+الأرباح
+</span></a></li>   
+
+
+       
+    
+
+
+
+
+<li class="stats-confirmation"><a href="{{path_for('confirmation')}}?type=confirmation"> <i class="icon-checkmark2"></i> 
+<span> 
+ لجنة الموافقة  
+
+</span>
+
+</a> </li>
+
+
+
+      
+
+<li><a href="{{path_for('suivi')}}?type=suivi"> <i class="icon-stats-growth2"></i> 
+<span> 
+ لجنة المتابعة
+
+</span>
+</a> </li>
+
+ 
+  
+<li><a href="{{path_for('pages.find')}}"><i class="icon-search4"></i> <span> 
+البحث
+</span></a></li>   
+      
+
+
+
+<li>
+<a href=""><i class="icon-rating3"></i> <span>  الإحصائيات   </span></a>
+<ul>
+<li><a href="{{ path_for('statistiques')}}">  الإحصائيات العامة  </a></li>
+<li><a href="{{ path_for('statistiques.delivers')}}">  قائمة الإحصائيات للموزعين    </a></li>
+<li><a href="{{ path_for('statistiques.employees')}}">    قائمة الإحصائيات للموظفات       </a></li>
+<li><a href="{{ path_for('statistiques.products')}}">     احصائيات المنتوجات       </a></li>
+</ul>
+</li>       
+    
+
+<li><a href="{{path_for('stockGeneral')}}"><i class="icon-cash3"></i> <span>     المخزون العام     </span></a></li>       
+<li><a href="{{ path_for('reception')}}">  <i class="icon-grid-alt"></i> <span>    Reception     </span>       </a></li>
+
+
+        
+               
+               
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+  {% endif %}

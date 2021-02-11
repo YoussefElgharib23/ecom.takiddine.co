@@ -1,0 +1,113 @@
+{% extends "admin/layout.twig" %}
+
+{% block content %}
+
+
+      
+
+
+
+{% include 'admin/elements/flash.twig' %}
+
+<div class="content" style='margin-top:45px;'>   
+
+
+<div class="panel from_to hidden">
+<div class="panel-body">
+<form class="heading-form mg-b-25" id="form-stats-From-To" autocomplete="off" method="GET" action="{{path_for('admin.index')}}">
+<div class="section-wrapper mg-t-20">
+       
+          <div class="row">
+            <div class="col-lg-5">
+                <input value='{{from}}' type="text" name="from" readonly='true' placeholder="التاريخ من" class="form-control" id="datepickerFrom">
+            </div><!-- col -->
+            <div class="col-lg-5 mg-t-40 mg-lg-t-0">
+                <input type="text" name="to" value='{{to}}'readonly='true' placeholder="التاريخ الى" class="form-control" id="datepickerTo">
+            </div><!-- col -->
+            <div class="col-lg-2 mg-t-40 mg-lg-t-0">
+                <input type="submit" class='btn  btn-block btn-primary' value='بحث' />
+            </div><!-- col -->
+          </div><!-- row -->
+        </div>
+</form>
+</div>        
+</div>        
+
+
+
+
+
+
+
+
+
+
+<!-- Content area -->
+<div class="xsx">
+
+
+<div class="row">
+    
+   <h1 class="col-md-12" id="la_date"> تاريخ اليوم  </h1>
+ 
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-blue-400 has-bg-image ">
+            <div class="media no-margin">
+               <div class="media-body">
+                  <h3 class="no-margin">   <span>{{earned}}</span>      درهم </h3>
+                  <span class="text-uppercase text-size-mini"> مجموع الأرباح لهذا الأيوم </span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-cash3 icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+   
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-danger-400 has-bg-image">
+            <div class="media no-margin">
+               <div class="media-body">
+                  <h3 class="no-margin">{{totalNewOrders}}</h3>
+                  <span class="text-uppercase text-size-mini">عدد الطلبات الجديدة</span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-file-empty2 icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+  
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-success-400 has-bg-image">
+            <div class="media no-margin">
+               <div class="media-body text-left">
+                  <h3 class="no-margin">{{statsdelivers.waiting}}</h3>
+                  <span class="text-uppercase text-size-mini">عدد الطلبات في  انتظار التوزيع</span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-users2 icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+   
+      <div class="col-sm-6 col-md-3">
+         <div class="panel panel-body bg-indigo-400 has-bg-image">
+            <div class="media no-margin">
+               <div class="media-body text-left">
+                  <h3 class="no-margin">{{statsemployee.waiting}}</h3>
+                  <span class="text-uppercase text-size-mini"> الطلبات  قيد المعالجة  </span>
+               </div>
+               <div class="media-right media-middle"><i class="icon-phone-wave icon-3x opacity-75"></i></div>
+            </div>
+         </div>
+      </div>
+ 
+</div>
+</div>
+
+
+
+
+
+
+</div>
+
+</div>
+
+{% endblock %}
